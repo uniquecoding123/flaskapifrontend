@@ -1,0 +1,245 @@
+
+.pllogo {
+    margin-left:30%;
+}
+
+/* Navbar */
+.navbar {
+    width: 47%;
+    margin-left: 71%;
+    margin-top: 3%;
+}
+
+.navbar a {
+    font-size: 15px;
+    margin-left: 3%;
+    color: #37013d;
+    text-decoration: none;
+}
+
+.wel {
+    color: #38033f;
+    margin-left: 33%;
+    width: 25%;
+}
+
+.middle{
+    margin-left: 34%;
+    display: block;
+    width: 25%;
+}
+
+.login {
+    margin-left: 45%;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background: #ff6f00;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #ff5500;
+}
+
+/* Style for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+    text-align: left;
+}
+
+/* Style for table header */
+thead tr {
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Style for table rows */
+tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Style for table cells */
+td, th {
+    padding: 12px 15px;
+}
+
+/* Style for form elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #e68a00;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+.alt-row {
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: orange;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: darkorange;
+}
+
+
+.cr7logo {
+    height: 21%;
+    position: absolute;
+    /* margin-top: 0%; */
+    margin-top: 40%;
+    margin-left: 0%;
+}
+
+
+
+.messilogo{
+position: absolute;
+    z-index: 1;
+    height: 16%;
+    margin-top: 44%;
+    margin-left: -16%;
+}
+
+
+
+@media (min-width: 1024px) {
+body{
+    background-color: #00fd88;
+}
+    .cr7logo {
+        height: 50%;
+        position: absolute;
+        margin-top: 35%;
+        margin-left: 5%;
+    }
+    
+    
+    
+    
+    .messilogo {
+        /* height: 21%; */
+        position: absolute;
+        z-index: 1;
+        height: 40%;
+        margin-top: 37%;
+        margin-left: -5%;
+    }
+    .navbar {
+        width: 36%;
+        margin-left: 71%;
+        margin-top: 3%;
+    
+        
+    }
+
+
+    
+   
+
+   
+}
+
+
+.body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+    background-color: #00fd88;
+}
+
+.container{
+    
+}
+

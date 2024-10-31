@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="scoreApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Scoreboard App</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>  
+</head>
+<body class="body">
+
+<div class="container">
+    <div class="navbar">
+        <a href="#!/login">Login</a>
+        <a href="#!/register">Register</a>
+        <a href="#!/players">Add Players</a>
+        <a href="#!/team-stats">Team Stats</a>
+    </div>
+    <img src="cr72.png" class="cr7logo" alt="">
+    <img src="OIP.jpeg" class="pllogo" alt="">
+    <img src="messi.png" class="messilogo" alt="">
+    <ng-view class="middle"></ng-view>
+</div>
+
+<script>
+    var app = angular.module('scoreApp', ['ngRoute']);
+
+    app.config(function($routeProvider) {
+        $routeProvider
+            .when('/', {
+                template: `<h2 class="wel">Welcome to the Scoreboard App!</h2>`,
+                controller: 'MainController'
+            })
+            .when('/login', {
+                template: `
+                    <h2 class="login">Login</h2>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" ng-model="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" ng-model="password">
+                    </div>
+                    <button ng-click="login()">Login</button>
+                    <p>Don't have an account? <a href="#!/register">Register here</a></p>
+                `,
+                controller: 'LoginController'
+            })
+            .when('/register', {
+                template: `
+                    <h2 class="login">Register</h2>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" ng-model="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" ng-model="password">
+                    </div>
+                    <button ng-click="register()">Register</button>
+                    <p>Already have an account? <a href="#!/login">Login here</a></p>
+                `,
+                controller: 'RegisterController'
+            })
+            .when('/players', {
+                template: `
+                    <h2 class="login">Players</h2>
+<div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" id="name" ng-model="newPlayer.name">
+</div>
+<div class="form-group">
+    <label for="score">Score</label>
+    <input type="number" id="score" ng-model="newPlayer.score">
+</div>
+<button ng-click="addPlayer()">Add Player</button>
+
+<h3>Player List</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="player in players">
+            <td>{{ player.name }}</td>
+            <td>{{ player.score }}</td>
+        </tr>
+    </tbody>
+</table>
+
+                    <p>Want to see team stats? <a href="#!/team-stats">View Team Stats</a></p>
+                `,
+                controller: 'PlayersController'
+            })
+            .when('/team-stats', {
+                template: `
+                    <h2 class="login">Team Stats</h2>
+<div class="form-group">
+    <label for="team1_name">Team 1 Name</label>
+    <input type="text" id="team1_name" ng-model="newTeamStat.team1_name">
+</div>
+<div class="form-group">
+    <label for="team1_wins">Team 1 Wins</label>
+    <input type="number" id="team1_wins" ng-model="newTeamStat.team1_wins">
+</div>
+<div class="form-group">
+    <label for="team2_name">Team 2 Name</label>
+    <input type="text" id="team2_name" ng-model="newTeamStat.team2_name">
+</div>
+<div class="form-group">
+    <label for="team2_wins">Team 2 Wins</label>
+    <input type="number" id="team2_wins" ng-model="newTeamStat.team2_wins">
+</div>
+<button ng-click="addTeamStats()">Add Team Stats</button>
+
+<h3>Team Stats List</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Team 1 Name</th>
+            <th>Team 1 Wins</th>
+            <th>Team 2 Name</th>
+            <th>Team 2 Wins</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="stat in teamStats" ng-class="{'alt-row': $even}">
+            <td>{{ stat.team1_name }}</td>
+            <td>{{ stat.team1_wins }}</td>
+            <td>{{ stat.team2_name }}</td>
+            <td>{{ stat.team2_wins }}</td>
+        </tr>
+    </tbody>
+</table>
+
+                    <p>Want to manage players? <a href="#!/players">Go to Players</a></p>
+                `,
+                controller: 'TeamStatsController'
+            })
+            .otherwise({
+                redirectTo: '/'
+            });
+    });
+
+    app.controller('MainController', function($scope) {
+        $scope.token = '';
+    });
+
+    app.controller('LoginController', function($scope, $http, $location) {
+        $scope.username = '';
+        $scope.password = '';
+
+        $scope.login = function() {
+            $http.post('https://scoreboard-spa.vercel.app/login', {
+                username: $scope.username,
+                password: $scope.password
+            }).then(function(response) {
+                $scope.$parent.token = response.data.access_token;
+                $location.path('/players');
+            }, function(error) {
+                alert('Login failed!');
+            });
+        };
+    });
+
+    app.controller('RegisterController', function($scope, $http, $location) {
+        $scope.username = '';
+        $scope.password = '';
+
+        $scope.register = function() {
+            $http.post('https://scoreboard-spa.vercel.app/register', {
+                username: $scope.username,
+                password: $scope.password
+            }).then(function(response) {
+                alert('Registration successful! Please log in.');
+                $location.path('/login');
+            }, function(error) {
+                alert('Registration failed!');
+            });
+        };
+    });
+
+    app.controller('PlayersController', function($scope, $http) {
+        $scope.players = [];
+        $scope.newPlayer = {
+            name: '',
+            score: ''
+        };
+
+        $scope.fetchPlayers = function() {
+            $http.get('https://scoreboard-spa.vercel.app/players', {
+                headers: { 'Authorization': 'Bearer ' + $scope.$parent.token }
+            }).then(function(response) {
+                $scope.players = response.data;
+            }, function(error) {
+                alert('Failed to fetch players!');
+            });
+        };
+
+        $scope.addPlayer = function() {
+            $http.post('https://scoreboard-spa.vercel.app/players', $scope.newPlayer, {
+                headers: { 'Authorization': 'Bearer ' + $scope.$parent.token }
+            }).then(function(response) {
+                $scope.players.push(response.data);
+                $scope.newPlayer.name = '';
+                $scope.newPlayer.score = '';
+            }, function(error) {
+                alert('Failed to add player!');
+            });
+        };
+
+        // Fetch players when the controller loads
+        $scope.fetchPlayers();
+    });
+
+    app.controller('TeamStatsController', function($scope, $http) {
+        $scope.teamStats = [];
+        $scope.newTeamStat = {
+            team1_name: '',
+            team1_wins: '',
+            team2_name: '',
+            team2_wins: ''
+        };
+
+        $scope.fetchTeamStats = function() {
+            $http.get('https://scoreboard-spa.vercel.app/team', {
+                headers: { 'Authorization': 'Bearer ' + $scope.$parent.token }
+            }).then(function(response) {
+                $scope.teamStats = response.data;
+            }, function(error) {
+                alert('Failed to fetch team stats!');
+            });
+        };
+
+        $scope.addTeamStats = function() {
+            $http.post('https://scoreboard-spa.vercel.app/team', $scope.newTeamStat, {
+                headers: { 'Authorization': 'Bearer ' + $scope.$parent.token }
+            }).then(function(response) {
+                $scope.teamStats.push(response.data);
+                $scope.newTeamStat.team1_name = '';
+                $scope.newTeamStat.team1_wins = '';
+                $scope.newTeamStat.team2_name = '';
+                $scope.newTeamStat.team2_wins = '';
+            }, function(error) {
+                alert('Failed to add team stats!');
+            });
+        };
+
+        // Fetch team stats when the controller loads
+        $scope.fetchTeamStats();
+    });
+</script>
+
+</body>
+</html>
